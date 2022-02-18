@@ -1,0 +1,38 @@
+version: "2.0"
+services:
+    node_exporter:
+        image: prom/node-exporter
+        container_name: node-exporter
+        ports:
+            - 9100:9100
+        pid: host
+        restart: always
+
+
+    alert_manager:
+        image: prom/alertmanager
+        container_name: alert-manager
+        ports:
+                - 9093:9093
+        volumes:
+                - "C:/Users/jeanp/Downloads/prometheus-2.33.3.darwin-amd64/alertmanager.yml:/etc/prometheus/alertmanager.yml"
+        restart: always
+
+    prometheus:
+        image: prom/prometheus
+        container_name: prometheus
+        ports:
+                - 9090:9090
+        volumes:
+                - "C:/Users/jeanp/Downloads/prometheus-2.33.3.darwin-amd64/prometheus.yml:/etc/prometheus/prometheus.yml"
+                - "C:/Users/jeanp/Downloads/prometheus-2.33.3.darwin-amd64/rules.yml:/etc/prometheus/rules.yml"
+        restart: always
+
+    app:
+        container_name: app
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+                - 8010:8010
+        restart: always

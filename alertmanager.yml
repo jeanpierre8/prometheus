@@ -1,0 +1,12 @@
+global:
+  smtp_smarthost: 'localhost:25'
+  smtp_from: '<jeanpierre.tran@localhost.com>'
+route:
+  receiver: '<jeanpierre.tran@localhost.com>'
+receivers:
+- name: '<jeanpierre.tran@localhost.com'
+  email_configs:
+    - to: '<jeanpierre.tran@localhost.com>'
+      tls_config:
+        insecure_skip_verify: true
+      require_tls: false
